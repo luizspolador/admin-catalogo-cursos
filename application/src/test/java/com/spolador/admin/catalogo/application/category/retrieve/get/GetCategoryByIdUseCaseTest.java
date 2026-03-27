@@ -4,6 +4,7 @@ import com.spolador.admin.catalogo.domain.category.Category;
 import com.spolador.admin.catalogo.domain.category.CategoryGateway;
 import com.spolador.admin.catalogo.domain.category.CategoryID;
 import com.spolador.admin.catalogo.domain.exceptions.DomainException;
+import com.spolador.admin.catalogo.domain.exceptions.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,7 +64,7 @@ public class GetCategoryByIdUseCaseTest {
                 .thenReturn(Optional.empty());
 
         final var actualException = Assertions.assertThrows(
-                DomainException.class, () -> useCase.execute(expectedId.getValue()));
+                NotFoundException.class, () -> useCase.execute(expectedId.getValue()));
 
         Assertions.assertEquals(expectedErrorMessage, actualException.getMessage());
     }

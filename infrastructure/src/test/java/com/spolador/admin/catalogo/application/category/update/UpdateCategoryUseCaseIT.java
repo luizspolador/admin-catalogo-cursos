@@ -3,8 +3,8 @@ package com.spolador.admin.catalogo.application.category.update;
 import com.spolador.admin.catalogo.IntegrationTest;
 import com.spolador.admin.catalogo.domain.category.Category;
 import com.spolador.admin.catalogo.domain.category.CategoryGateway;
-import com.spolador.admin.catalogo.domain.category.CategoryID;
 import com.spolador.admin.catalogo.domain.exceptions.DomainException;
+import com.spolador.admin.catalogo.domain.exceptions.NotFoundException;
 import com.spolador.admin.catalogo.infrastructure.category.persistence.CategoryJpaEntity;
 import com.spolador.admin.catalogo.infrastructure.category.persistence.CategoryRepository;
 import org.junit.jupiter.api.Assertions;
@@ -14,13 +14,8 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
-import java.util.Objects;
-import java.util.Optional;
 
-import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @IntegrationTest
@@ -175,7 +170,6 @@ public class UpdateCategoryUseCaseIT {
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsActive = false;
         final var expectedErrorMessage = "Category with ID 321 was not found";
-        final var expectedErrorCount = 1;
         final var expectedId = "321";
 
         final var aCommand = UpdateCategoryCommand.with(
@@ -186,10 +180,9 @@ public class UpdateCategoryUseCaseIT {
         );
 
         final var actualException =
-                Assertions.assertThrows(DomainException.class, () -> useCase.execute(aCommand));
+                Assertions.assertThrows(NotFoundException.class, () -> useCase.execute(aCommand));
 
-        Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
-        Assertions.assertEquals(expectedErrorMessage, actualException.getErrors().get(0).message());
+        Assertions.assertEquals(expectedErrorMessage, actualException.getMessage());
     }
 
     private void save(final Category... aCategory) {
