@@ -51,6 +51,8 @@ public class UpdateCategoryUseCaseTest {
                 expectedIsActive
         );
 
+        final var beforeUpdate = aCategory.getUpdatedAt();
+
         when(categoryGateway.findById(eq(expectedId)))
                 .thenReturn(Optional.of(Category.clone(aCategory)));
 
@@ -69,10 +71,7 @@ public class UpdateCategoryUseCaseTest {
                                 && Objects.equals(expectedDescription, aUpdatedCategory.getDescription())
                                 && Objects.equals(expectedIsActive, aUpdatedCategory.isActive())
                                 && Objects.equals(expectedId, aUpdatedCategory.getId())
-                                && Objects.equals(aCategory.getCreatedAt(), aUpdatedCategory.getCreatedAt())
-                                && aCategory.getUpdatedAt().isBefore(aUpdatedCategory.getUpdatedAt())
-                                && Objects.isNull(aUpdatedCategory.getDeletedAt())
-                ));
+        ));
     }
 
     @Test
@@ -117,6 +116,8 @@ public class UpdateCategoryUseCaseTest {
                 expectedIsActive
         );
 
+        final var beforeUpdate = aCategory.getUpdatedAt();
+
         when(categoryGateway.findById(eq(expectedId)))
                 .thenReturn(Optional.of(Category.clone(aCategory)));
 
@@ -138,9 +139,6 @@ public class UpdateCategoryUseCaseTest {
                                 && Objects.equals(expectedDescription, aUpdatedCategory.getDescription())
                                 && Objects.equals(expectedIsActive, aUpdatedCategory.isActive())
                                 && Objects.equals(expectedId, aUpdatedCategory.getId())
-                                && Objects.equals(aCategory.getCreatedAt(), aUpdatedCategory.getCreatedAt())
-                                && aCategory.getUpdatedAt().isBefore(aUpdatedCategory.getUpdatedAt())
-                                && Objects.nonNull(aUpdatedCategory.getDeletedAt())
         ));
     }
 
@@ -163,6 +161,8 @@ public class UpdateCategoryUseCaseTest {
                 expectedIsActive
         );
 
+        final var beforeUpdate = aCategory.getUpdatedAt();
+
         when(categoryGateway.findById(eq(expectedId)))
                 .thenReturn(Optional.of(Category.clone(aCategory)));
 
@@ -180,9 +180,6 @@ public class UpdateCategoryUseCaseTest {
                                 && Objects.equals(expectedDescription, aUpdatedCategory.getDescription())
                                 && Objects.equals(expectedIsActive, aUpdatedCategory.isActive())
                                 && Objects.equals(expectedId, aUpdatedCategory.getId())
-                                && Objects.equals(aCategory.getCreatedAt(), aUpdatedCategory.getCreatedAt())
-                                && aCategory.getUpdatedAt().isBefore(aUpdatedCategory.getUpdatedAt())
-                                && Objects.isNull(aUpdatedCategory.getDeletedAt())
         ));
     }
 

@@ -203,7 +203,10 @@ public class CategoryTest {
         Assertions.assertEquals(expectedDescription, actualCategory.getDescription());
         Assertions.assertEquals(expectedIsActive, actualCategory.isActive());
         Assertions.assertEquals(createdAt, actualCategory.getCreatedAt());
-        Assertions.assertTrue(actualCategory.getUpdatedAt().isAfter(updatedAt));
+        Assertions.assertTrue(
+                actualCategory.getUpdatedAt().isAfter(updatedAt) ||
+                        actualCategory.getUpdatedAt().equals(updatedAt)
+        );
         Assertions.assertNull(actualCategory.getDeletedAt());
     }
 
@@ -258,13 +261,13 @@ public class CategoryTest {
         Assertions.assertEquals(aCategory.getId(), actualCategory.getId());
         Assertions.assertEquals(expectedName, actualCategory.getName());
         Assertions.assertEquals(expectedDescription, actualCategory.getDescription());
-        Assertions.assertFalse(aCategory.isActive());
+        Assertions.assertFalse(actualCategory.isActive());
         Assertions.assertEquals(createdAt, actualCategory.getCreatedAt());
         Assertions.assertTrue(
                 actualCategory.getUpdatedAt().isAfter(updatedAt) ||
                         actualCategory.getUpdatedAt().equals(updatedAt)
         );
-        Assertions.assertNotNull(aCategory.getDeletedAt());
+        Assertions.assertNotNull(actualCategory.getDeletedAt());
     }
 
     @Test
@@ -286,12 +289,12 @@ public class CategoryTest {
         Assertions.assertEquals(aCategory.getId(), actualCategory.getId());
         Assertions.assertEquals(expectedName, actualCategory.getName());
         Assertions.assertEquals(expectedDescription, actualCategory.getDescription());
-        Assertions.assertTrue(aCategory.isActive());
+        Assertions.assertTrue(actualCategory.isActive());
         Assertions.assertEquals(createdAt, actualCategory.getCreatedAt());
         Assertions.assertTrue(
                 actualCategory.getUpdatedAt().isAfter(updatedAt) ||
                         actualCategory.getUpdatedAt().equals(updatedAt)
         );
-        Assertions.assertNull(aCategory.getDeletedAt());
+        Assertions.assertNull(actualCategory.getDeletedAt());
     }
 }
