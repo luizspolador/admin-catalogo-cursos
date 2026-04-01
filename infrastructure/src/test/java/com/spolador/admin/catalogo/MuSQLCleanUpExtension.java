@@ -7,7 +7,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Collection;
 
-public class CleanUpExtension implements BeforeEachCallback {
+public class MuSQLCleanUpExtension implements BeforeEachCallback {
     @Override
     public void beforeEach(final ExtensionContext extensionContext) throws Exception {
         final var repositories = SpringExtension
