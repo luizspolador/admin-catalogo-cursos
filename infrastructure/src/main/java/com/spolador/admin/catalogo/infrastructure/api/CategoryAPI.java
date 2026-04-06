@@ -41,13 +41,12 @@ public interface CategoryAPI {
     Pagination<CategoryListResponse> listCategories(
             @RequestParam(name = "search", required = false, defaultValue = "") final String search,
             @RequestParam(name = "page", required = false, defaultValue = "0") final int page,
-            @RequestParam(name = "perPage", required = false, defaultValue = "00") final int perPage,
+            @RequestParam(name = "perPage", required = false, defaultValue = "10") final int perPage,
             @RequestParam(name = "sort", required = false, defaultValue = "name") final String sort,
             @RequestParam(name = "dir", required = false, defaultValue = "asc") final String direction
     );
 
     @GetMapping(value = "{id}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @Operation(summary = "Get a category by it's identifier")
@@ -70,10 +69,7 @@ public interface CategoryAPI {
     })
     ResponseEntity<?> updatedById(@PathVariable(name = "id") String id, @RequestBody UpdateCategoryRequest input);
 
-    @DeleteMapping(value = "{id}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @DeleteMapping(value = "{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete a category by it's identifier")
     @ApiResponses(value = {
