@@ -2,7 +2,9 @@ package com.spolador.admin.catalogo.domain.level;
 
 import com.spolador.admin.catalogo.domain.AggregateRoot;
 import com.spolador.admin.catalogo.domain.category.CategoryID;
+import com.spolador.admin.catalogo.domain.exceptions.NotificationException;
 import com.spolador.admin.catalogo.domain.validation.ValidationHandler;
+import com.spolador.admin.catalogo.domain.validation.handler.Notification;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -33,6 +35,13 @@ public class Level extends AggregateRoot<LevelID> {
         this.createdAt = aCreatedAt;
         this.updatedAt = aUpdatedAt;
         this.deletedAt = aDeletedAt;
+
+        final var notification = Notification.create();
+        validate(notification);
+
+        if(notification.hasError()) {
+            throw new NotificationException("Failed to create an Aggregate Level", notification);
+        }
     }
 
     public static Level newLevel(final String aName, final boolean isActive) {
@@ -68,7 +77,7 @@ public class Level extends AggregateRoot<LevelID> {
 
     @Override
     public void validate(final ValidationHandler handler) {
-
+    new LevelValidator(this, handler).validate();
     }
 
     public String getName() {

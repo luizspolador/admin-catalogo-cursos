@@ -1,7 +1,6 @@
 package com.spolador.admin.catalogo.domain.level;
 
-import com.spolador.admin.catalogo.domain.exceptions.DomainException;
-import com.spolador.admin.catalogo.domain.validation.handler.ThrowsValidationHandler;
+import com.spolador.admin.catalogo.domain.exceptions.NotificationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -32,10 +31,8 @@ public class LevelTest {
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'name' should not be null";
 
-        final var actualLevel = Level.newLevel(expectedName, expectedIsActive);
-
-        final var actualException = Assertions.assertThrows(DomainException.class, () -> {
-            actualLevel.validate(new ThrowsValidationHandler());
+        final var actualException = Assertions.assertThrows(NotificationException.class, () -> {
+            Level.newLevel(expectedName, expectedIsActive);
         });
 
         Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
@@ -49,10 +46,8 @@ public class LevelTest {
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'name' should not be empty";
 
-        final var actualLevel = Level.newLevel(expectedName, expectedIsActive);
-
-        final var actualException = Assertions.assertThrows(DomainException.class, () -> {
-            actualLevel.validate(new ThrowsValidationHandler());
+        final var actualException = Assertions.assertThrows(NotificationException.class, () -> {
+            Level.newLevel(expectedName, expectedIsActive);
         });
 
         Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
@@ -69,10 +64,8 @@ public class LevelTest {
         final var expectedErrorCount = 1;
         final var expectedErrorMessage = "'name' must be between 1 and 255 characters";
 
-        final var actualLevel = Level.newLevel(expectedName, expectedIsActive);
-
-        final var actualException = Assertions.assertThrows(DomainException.class, () -> {
-            actualLevel.validate(new ThrowsValidationHandler());
+        final var actualException = Assertions.assertThrows(NotificationException.class, () -> {
+            Level.newLevel(expectedName, expectedIsActive);
         });
 
         Assertions.assertEquals(expectedErrorCount, actualException.getErrors().size());
